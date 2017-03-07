@@ -1,6 +1,6 @@
 from tkinter import *
 
-class Questionnaire(Frame):
+class MainMenu(Frame):
     # GUI setup
     def __init__(self, master):
         Frame.__init__(self, master)
@@ -26,6 +26,6 @@ class Questionnaire(Frame):
         btnQuota.grid(row=3, column=3)
 
 root = Tk()
-root.title("Teamwork Questionnaire")
-app = Questionnaire(root)
+root.title("Amazing")
+app = MainMenu(root)
 root.mainloop()
