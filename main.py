@@ -15,7 +15,7 @@ class MainMenu(Frame):
 
     def createButtons(self):
         btnAssign = Button(self, text='Assign', font=('Segoe UI', 16), background='#2196F3', activebackground='#64B5F6', activeforeground='#FFFFFF', foreground='#FFFFFF')
-        btnAssign.grid(row=1, column=1, columnspan=2, sticky=W+E, ipady=10, ipadx=30)
+        btnAssign.grid(row=1, column=1, columnspan=2, sticky=W+E, ipadx=40)
         btnReassign = Button(self, text='Reassign', font=('Segoe UI', 12))
         btnReassign.grid(row=2, column=1, columnspan=2, sticky=W+E)
 
