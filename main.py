@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import Image, ImageTk
 
 class MainMenu(Frame):
     # GUI setup
@@ -18,7 +19,9 @@ class MainMenu(Frame):
         btnReassign = Button(self, text='Reassign', font=('MS', 12))
         btnReassign.grid(row=2, column=1, columnspan=2, sticky=W+E)
 
-        btnSearchTutors = Button(self, text='Search', font=('MS', 12))
+        test1 = PhotoImage(file="search.gif")
+        btnSearchTutors = Button(self, text='Search', font=('MS', 12), image=test1, compound=LEFT)
+        btnSearchTutors.image = test1
         btnSearchTutors.grid(row=3, column=0, pady=10)
         btnQuota = Button(self, text='Quotas', font=('MS', 12))
         btnQuota.grid(row=3, column=3)
