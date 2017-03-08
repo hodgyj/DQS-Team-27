@@ -10,7 +10,7 @@ class MainMenu(Frame):
         self.createButtons()
 
     def createTitle(self):
-        lblTitle = Label(self, text='Cool Program', font=('MS', 32, 'bold'))
+        lblTitle = Label(self, text='T&T Systems™', font=('MS', 32, 'bold'))
         lblTitle.grid(row=0, column=0, columnspan=4, sticky=W+E, pady=10, padx=10)
 
     def createButtons(self):
@@ -27,7 +27,7 @@ class MainMenu(Frame):
         btnQuota.grid(row=3, column=3)
 
 root = Tk()
-root.title("Amazing")
+root.title("Tutor & Tutee")
 root.resizable(0,0)
 app = MainMenu(root)
 root.mainloop()
