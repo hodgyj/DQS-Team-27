@@ -10,20 +10,18 @@ class MainMenu(Frame):
         self.createButtons()
 
     def createTitle(self):
-        lblTitle = Label(self, text='T&T Systems™', font=('MS', 32, 'bold'))
-        lblTitle.grid(row=0, column=0, columnspan=4, sticky=W+E, pady=10, padx=10)
+        lblTitle = Label(self, text='T&T Systems™', font=('Segoe UI Light', 32))
+        lblTitle.grid(row=0, column=0, columnspan=4, sticky=W+E, pady=10, padx=20)
 
     def createButtons(self):
-        btnAssign = Button(self, text='Assign', font=('MS', 16), background='#E91E63', foreground='#FFFFFF')
+        btnAssign = Button(self, text='Assign', font=('Segoe UI', 16), background='#2196F3', activebackground='#64B5F6', activeforeground='#FFFFFF', foreground='#FFFFFF')
         btnAssign.grid(row=1, column=1, columnspan=2, sticky=W+E, ipady=10, ipadx=30)
-        btnReassign = Button(self, text='Reassign', font=('MS', 12))
+        btnReassign = Button(self, text='Reassign', font=('Segoe UI', 12))
         btnReassign.grid(row=2, column=1, columnspan=2, sticky=W+E)
 
-        test1 = PhotoImage(file="search.gif")
-        btnSearchTutors = Button(self, text='Search', font=('MS', 12), image=test1, compound=LEFT)
-        btnSearchTutors.image = test1
+        btnSearchTutors = Button(self, text='Search', font=('Segoe UI', 12), compound=LEFT)
         btnSearchTutors.grid(row=3, column=0, pady=10)
-        btnQuota = Button(self, text='Quotas', font=('MS', 12))
+        btnQuota = Button(self, text='Quotas', font=('Segoe UI', 12))
         btnQuota.grid(row=3, column=3)
 
 root = Tk()
