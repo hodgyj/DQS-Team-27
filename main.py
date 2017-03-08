@@ -25,5 +25,6 @@ class MainMenu(Frame):
 
 root = Tk()
 root.title("Amazing")
+root.resizable(0,0)
 app = MainMenu(root)
 root.mainloop()
