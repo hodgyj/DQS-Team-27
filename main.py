@@ -19,8 +19,8 @@ class MainMenu(Frame):
         btnReassign = Button(self, text='Reassign', font=('Segoe UI', 12))
         btnReassign.grid(row=2, column=1, columnspan=2, sticky=W+E)
 
-        btnSearchTutors = Button(self, text='Search', font=('Segoe UI', 12), compound=LEFT)
-        btnSearchTutors.grid(row=3, column=0, pady=10)
+        btnSearch = Button(self, text='Search', font=('Segoe UI', 12), compound=LEFT)
+        btnSearch.grid(row=3, column=0, pady=10)
         btnQuota = Button(self, text='Quotas', font=('Segoe UI', 12))
         btnQuota.grid(row=3, column=3)
 
