@@ -12,14 +12,14 @@ class Reassign(Frame):
 
 	def createTitle(self):
 
-		TitlePg = Label(self, text='Reassign Student', font=('Segoe UI light', 24))
+		TitlePg = Label(self, text='Reassign Student', font=('Segoe UI light', 24), background="white")
 		TitlePg.grid(row=0, column=0, columnspan=4, sticky=W+E)
 
 
 	def createIdEntry(self):
 		
 		Label(self, text='Please enter ID of\nstudent to be reassigned:', 
-			font=('Segoe UI light', 18)).grid(row=1, column=0, columnspan=4, sticky=W+E, padx=15)
+			font=('Segoe UI light', 18), background="white").grid(row=1, column=0, columnspan=4, sticky=W+E, padx=15)
 		self.entId=Entry(self, font=('Segoe UI', 18), fg='#2196F3', bg='white')
 		self.entId.grid(row=2, column=0, columnspan=4, sticky=W+E, padx=15)
 
@@ -35,4 +35,5 @@ root = Tk()
 root.title("Reassign Student")
 root.resizable(0,0)
 app = Reassign(root)
+app.configure(background="white")
 root.mainloop()
