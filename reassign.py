@@ -13,22 +13,22 @@ class Reassign(Frame):
 	def createTitle(self):
 
 		TitlePg = Label(self, text='Reassign Student', font=('Segoe UI light', 24))
-		TitlePg.grid(row=0, column=0, columnspan=6, sticky=W+E)
+		TitlePg.grid(row=0, column=0, columnspan=4, sticky=W+E)
 
 
 	def createIdEntry(self):
 		
 		Label(self, text='Please enter ID of\nstudent to be reassigned:', 
-			font=('Segoe UI light', 20)).grid(row=2)
+			font=('Segoe UI light', 18)).grid(row=1, column=0, columnspan=4, sticky=W+E, padx=15)
 		self.entId=Entry(self, font=('Segoe UI', 18), fg='#2196F3', bg='white')
-		self.entId.grid(row=2, column=2, columnspan=4, sticky=E)
+		self.entId.grid(row=2, column=0, columnspan=4, sticky=W+E, padx=15)
 
 	def Submit(self):
 
 	 	butSubmit = Button(self, text='OK',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT)
-	 	butSubmit.grid(row=4, column=0, columnspan=2, pady=10, ipadx=2)
+	 	butSubmit.grid(row=3, column=1, columnspan=1, sticky=W, pady=10, ipadx=2)
 	 	butCancel = Button(self, text='Cancel',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT)
-	 	butCancel.grid(row=4, column=2, columnspan=2, pady=10, ipadx=2)
+	 	butCancel.grid(row=3, column=2, columnspan=1, sticky=E, pady=10, ipadx=2)
 
 
 root = Tk()

@@ -19,8 +19,8 @@ class Assign(Frame):
 	def id(self):
 		self.tutor = Entry(self, font=('Segoe UI', 18), fg='#2196F3', bg='white')
 		self.tutee = Entry(self, font=('Segoe UI', 18), fg='#2196F3', bg='white')
-		self.tutee.grid(row=2, column=1, sticky=E)
-		self.tutor.grid(row=1, column=1, sticky=E)
+		self.tutee.grid(row=2, column=1, sticky=E, padx=20)
+		self.tutor.grid(row=1, column=1, sticky=E, padx=20)
 
 	def buttons(self):
 	 	butSubmit = Button(self, text='OK',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT)
