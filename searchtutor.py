@@ -25,9 +25,6 @@ class Search(Frame):
         btnCancel = Button(self, text='Cancel', font=('Segoe UI', 14), background='#2196F3', activebackground='#64B5F6', activeforeground='#FFFFFF', foreground='#FFFFFF')
         btnCancel.grid(row=3, column=2, sticky=W+E, ipadx=10, padx=10)
 
-        
-        
-
 root = Tk()
 root.title("Search")
 root.resizable(0,0)
