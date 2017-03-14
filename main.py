@@ -10,7 +10,7 @@ class MainMenu(Frame):
         self.createButtons()
 
     def createTitle(self):
-        lblTitle = Label(self, text='T&T Systems™', font=('Segoe UI Light', 32))
+        lblTitle = Label(self, text='T&T Systems™', font=('Segoe UI Light', 32), background="white")
         lblTitle.grid(row=0, column=0, columnspan=4, sticky=W+E, pady=10, padx=20)
 
     def createButtons(self):
@@ -28,4 +28,5 @@ root = Tk()
 root.title("Tutor & Tutee")
 root.resizable(0,0)
 app = MainMenu(root)
+app.configure(background="white")
 root.mainloop()

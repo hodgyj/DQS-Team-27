@@ -9,18 +9,18 @@ class Assign(Frame):
 		self.clear()
 
 	def idInput(self):
-		lblTitle = Label(self, text='Assign Student', font=('Segoe UI light', 24))
-		lblTutor = Label(self, text='Please enter CSV \nfilename for TUTORS: ', font=('Segoe UI light', 18))
-		lblTutee = Label(self, text='Please enter CSV \nfilename for TUTEES: ', font=('Segoe UI light', 18))
+		lblTitle = Label(self, text='Assign Student', font=('Segoe UI light', 24), background="white")
+		lblTutor = Label(self, text='Please enter CSV \nfilename for TUTORS: ', font=('Segoe UI light', 16), background="white")
+		lblTutee = Label(self, text='Please enter CSV \nfilename for TUTEES: ', font=('Segoe UI light', 16), background="white")
 		lblTitle.grid(row=0, column=0, columnspan=3, sticky=W+E)
-		lblTutor.grid(row=1, column=0, sticky=W)
-		lblTutee.grid(row=2, column=0, sticky=W)
+		lblTutor.grid(row=1, column=0, sticky=W, padx=10)
+		lblTutee.grid(row=2, column=0, sticky=W, padx=10)
 
 	def id(self):
-		self.tutor = Entry(self, font=('Segoe UI', 18), fg='#2196F3', bg='white')
-		self.tutee = Entry(self, font=('Segoe UI', 18), fg='#2196F3', bg='white')
-		self.tutee.grid(row=2, column=1, sticky=E)
-		self.tutor.grid(row=1, column=1, sticky=E)
+		self.tutor = Entry(self, font=('Segoe UI', 16), fg='#2196F3', bg='white')
+		self.tutee = Entry(self, font=('Segoe UI', 16), fg='#2196F3', bg='white')
+		self.tutee.grid(row=2, column=1, sticky=E, padx=10)
+		self.tutor.grid(row=1, column=1, sticky=E, padx=10)
 
 	def buttons(self):
 	 	butSubmit = Button(self, text='OK',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT)
@@ -40,4 +40,5 @@ class Assign(Frame):
 root = Tk()
 root.title("Assign")
 app = Assign(root)
+app.configure(background="white")
 root.mainloop() 

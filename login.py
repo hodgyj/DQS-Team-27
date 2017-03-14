@@ -11,14 +11,14 @@ class Login(Frame):
 
 
     def createTitle(self):
-            lblTitle = Label(self, text='T&T Systems™', font=('Segoe UI Light', 32))
+            lblTitle = Label(self, text='T&T Systems™', font=('Segoe UI Light', 32), background="white")
             lblTitle.grid(row=0, column=0, columnspan=4, sticky=W+E)
 
     def createInputs(self):      
-            lblUser = Label(self, text='Username:', font=('Segoe UI Light', 18))
+            lblUser = Label(self, text='Username:', font=('Segoe UI Light', 18), background="white")
             lblUser.grid(row=1, column=0, columnspan=3, sticky=W+E)
 
-            lblPass = Label(self, text='Password:', font=('Segoe UI Light', 18))
+            lblPass = Label(self, text='Password:', font=('Segoe UI Light', 18), background="white")
             lblPass.grid(row=3, column=0, columnspan=3, sticky=W+E)
 
             txtUser = Entry(self, font=('Segoe UI', 18), fg='#2196F3', bg='white')
@@ -35,4 +35,5 @@ root = Tk()
 root.title("T&T")
 root.resizable(0,0)
 app = Login(root)
+app.configure(background="white")
 root.mainloop()

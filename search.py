@@ -10,7 +10,7 @@ class Search(Frame):
         self.createButtons()
 
     def createTitle(self):
-        lblTitle = Label(self, text='Search', font=('Segoe UI Light', 32))
+        lblTitle = Label(self, text='Search', font=('Segoe UI Light', 32), background="white")
         lblTitle.grid(row=0, column=0, columnspan=5, sticky=W+E, pady=10, padx=20)
 
     def createButtons(self):
@@ -24,7 +24,7 @@ class Search(Frame):
         self.columnconfigure(0, minsize=20)
         self.columnconfigure(2, minsize=20)
         self.columnconfigure(4, minsize=20)
-        
+
         self.rowconfigure(2, minsize=15)
         
 
@@ -32,4 +32,5 @@ root = Tk()
 root.title("Search")
 root.resizable(0,0)
 app = Search(root)
+app.configure(background="white")
 root.mainloop()
