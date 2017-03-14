@@ -9,26 +9,24 @@ class Assign(Frame):
 		self.clear()
 
 	def idInput(self):
-		lblTitle = Label(self, text='Assign Student', font=('Segoe UI Light', 14,'bold'))
-		lblTutor = Label(self, text='Please enter CSV filename for TUTORS: ', font=('Segoe UI', 8))
-		lblTutee = Label(self, text='Please enter CSV filename for TUTEES: ', font=('Segoe UI', 8))
-		lblTitle.grid(row=0, column=1, rowspan=1)
-		lblTutor.grid(row=1, column=0, rowspan=1)
-		lblTutee.grid(row=2, column=0, rowspan=1)
+		lblTitle = Label(self, text='Assign Student', font=('Segoe UI light', 24))
+		lblTutor = Label(self, text='Please enter CSV \nfilename for TUTORS: ', font=('Segoe UI light', 18))
+		lblTutee = Label(self, text='Please enter CSV \nfilename for TUTEES: ', font=('Segoe UI light', 18))
+		lblTitle.grid(row=0, column=0, columnspan=3, sticky=W+E)
+		lblTutor.grid(row=1, column=0, sticky=W)
+		lblTutee.grid(row=2, column=0, sticky=W)
 
 	def id(self):
-		self.tutor = Entry(self)
-		self.tutee = Entry(self)
-		self.tutee.grid(row=2, column=1, columnspan=1, sticky=W)
-		self.tutor.grid(row=1, column=1, columnspan=1, sticky=W)
+		self.tutor = Entry(self, font=('Segoe UI', 18), fg='#2196F3', bg='white')
+		self.tutee = Entry(self, font=('Segoe UI', 18), fg='#2196F3', bg='white')
+		self.tutee.grid(row=2, column=1, sticky=E)
+		self.tutor.grid(row=1, column=1, sticky=E)
 
 	def buttons(self):
-		butSubmit = Button(self, text='Ok', font=('Segoe UI', 8,'bold'))
-		butClear = Button(self, text='Cancel', font=('Segoe UI', 8,'bold'))
-		butClear['command']=self.clear
-		butSubmit['command']=self.storeResponse
-		butSubmit.grid(row=3, column=1, columnspan=1)
-		butClear.grid(row=3, column=2, columnspan=1)
+	 	butSubmit = Button(self, text='OK',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT)
+	 	butSubmit.grid(row=4, column=0, columnspan=1, pady=10, ipadx=2)
+	 	butCancel = Button(self, text='Cancel',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT)
+	 	butCancel.grid(row=4, column=1, columnspan=1, pady=10, ipadx=2)
 
 	def clear(self):
 		self.tutor.delete(0, END)
@@ -38,11 +36,6 @@ class Assign(Frame):
 		strMsgReassign=""
 		if (self.tutor.index("end") == 0) or (self.tutee.index("end") == 0):
 			strMsgReassign = "Both fields must be completed."
-
-
-
-
-
 
 root = Tk()
 root.title("Assign")
