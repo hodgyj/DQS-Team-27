@@ -29,7 +29,7 @@ class Login(Frame):
                 messagebox.showerror("Login Error", "Incorrect username or password")
         else:
                 import mainmenu
-                self.destroy()
+                root.destroy()
                 mainmenu.StartWindow()
                 
 
