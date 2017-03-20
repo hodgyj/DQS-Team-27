@@ -18,6 +18,7 @@ class MainMenu(Frame):
     def openReassign(self):
         root.destroy()
         import reassign
+        reassign.StartWindow()
 
     def openSearch(self):
         root.destroy()
