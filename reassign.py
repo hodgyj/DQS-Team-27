@@ -6,7 +6,7 @@ def reassignTutee(identity, course, filename, tutfilename):
 	with open(tutfilename) as csvfile:
 		csvreader = csv.reader(csvfile)
 		for row in csvreader:
-			if (row[5] == course) && (numberOfStudents(row[0], filename) < row[4]):
+			if (row[5] == course) and (numberOfStudents(row[0], filename) < row[4]):
 				tutor = row[0]
 				with open(filename) as csvfile:
 					csvwriter = csv.writer(csvfile)
