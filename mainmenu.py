@@ -9,6 +9,8 @@ class MainMenu(Frame):
         self.createTitle()
         self.createButtons()
 
+    
+
     def createTitle(self):
         lblTitle = Label(self, text='T&T Systems™', font=('Segoe UI Light', 32), background="white")
         lblTitle.grid(row=0, column=0, columnspan=4, sticky=W+E, pady=10, padx=20)
@@ -31,3 +33,6 @@ def StartWindow():
     app = MainMenu(root)
     app.configure(background="white")
     root.mainloop()
+
+if __name__ == "__main__":
+    import login
