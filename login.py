@@ -15,7 +15,6 @@ def checkVal(user, password):
                 return False
 
 
-
 class Login(Frame):
     def __init__(self,master):
         Frame.__init__(self,master)
