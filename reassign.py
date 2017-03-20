@@ -1,4 +1,29 @@
 from tkinter import * 
+from tkinter import messagebox
+import csv
+
+def reassignTutee(identity, course, filename, tutfilename):
+	with open(tutfilename) as csvfile:
+		csvreader = csv.reader(csvfile)
+		for row in csvreader:
+			if (row[5] == course) && (numberOfStudents(row[0], filename) < row[4]):
+				tutor = row[0]
+				with open(filename) as csvfile:
+					csvwriter = csv.writer(csvfile)
+					csvreader = csv.reader(csvfile)
+					for row in csvreader:
+						if row[0] == identity:
+							row[4] = tutor
+
+def numberOfStudents(tutor, filename):
+	number = 0
+	with open(filename) as csvfile:
+		csvreader = csv.reader(csvfile)
+		for row in csvreader:
+			if (row[4] == tutor):
+				number += 1
+
+	return number
 
 class Reassign(Frame):
 
@@ -10,11 +35,25 @@ class Reassign(Frame):
 		self.createIdEntry()
 		self.Submit()
 
+	def submitClicked(self):
+		identity = self.entID.get()
+
+		with open(filename) as csvfile:
+			csvwriter = csv.writer(csvfile)
+			csvreader = csv.reader(csvfile)
+			found = False
+			for row in csvreader:
+				if row[0] == identity:
+					row[4] = ""
+					reassignTutee(identity, row[5], filename, tutfilename)
+					found = True
+			if not (found):
+				mesagebox.askretrycancel("Validation Error", "This is not a valid Student ID")
+
 	def createTitle(self):
 
 		TitlePg = Label(self, text='Reassign Student', font=('Segoe UI light', 24), background="white")
 		TitlePg.grid(row=0, column=0, columnspan=4, sticky=W+E)
-
 
 	def createIdEntry(self):
 		
@@ -30,10 +69,13 @@ class Reassign(Frame):
 	 	butCancel = Button(self, text='Cancel',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT)
 	 	butCancel.grid(row=3, column=2, columnspan=1, sticky=E, pady=10, ipadx=2)
 
+def StartWindow():
+	root = Tk()
+	root.title("Reassign Student")
+	root.resizable(0,0)
+	app = Reassign(root)
+	app.configure(background="white")
+	root.mainloop()
 
-root = Tk()
-root.title("Reassign Student")
-root.resizable(0,0)
-app = Reassign(root)
-app.configure(background="white")
-root.mainloop()
+if __name__ == "__main__":
+	import login
