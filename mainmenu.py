@@ -24,9 +24,10 @@ class MainMenu(Frame):
         btnQuota = Button(self, text='Quotas', font=('Segoe UI', 12))
         btnQuota.grid(row=3, column=3)
 
-root = Tk()
-root.title("Tutor & Tutee")
-root.resizable(0,0)
-app = MainMenu(root)
-app.configure(background="white")
-root.mainloop()
+def StartWindow():
+    root = Tk()
+    root.title("Tutor & Tutee")
+    root.resizable(0,0)
+    app = MainMenu(root)
+    app.configure(background="white")
+    root.mainloop()
