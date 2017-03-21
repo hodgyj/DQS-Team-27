@@ -36,7 +36,6 @@ def StartWindow():
     root.mainloop()
     
 def input_test(input):
-
     with open ('tutors.csv','rt') as csvfile:
         csvReader = csv.reader(csvfile)
         for row in csvReader:
@@ -48,9 +47,27 @@ def input_test(input):
             else:
                 messagebox.showerror("Input Error", "No such ID")
                 break
+                
 def searchTut(id):
-    return 0 
-    """ Doesnt do anything atm """
+    studentList= []
+    with open('tutees.csv', 'rt') as csvfile:
+        csvReader = csv.reader(csvfile)
+        
+        for row in csvReader:
+            childList =[]
+            if id in row[4]:
+                childList.append(row[0])
+
+                """Dealing with middle names"""
+
+                if row[3] == "":
+                    name = row[1] + ' ' + row[2]
+                else:
+                    name = row[1] + ' ' + row[2] + " " + row[3]
+                    
+                childList.append(name)
+                studentList.append(childList)
+        return studentList
 
 if __name__ == "__main__":
     import login
