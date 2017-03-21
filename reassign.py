@@ -2,33 +2,9 @@ from tkinter import *
 from tkinter import messagebox
 import csv
 
-def reassignTutee(identity, course, filename, tutfilename):
-	with open(tutfilename) as csvfile:
-		csvreader = csv.reader(csvfile)
-		for row in csvreader:
-			if (row[5] == course) and (numberOfStudents(row[0], filename) < row[4]):
-				tutor = row[0]
-				with open(filename) as csvfile:
-					csvwriter = csv.writer(csvfile)
-					csvreader = csv.reader(csvfile)
-					for row in csvreader:
-						if row[0] == identity:
-							row[4] = tutor
-
-def numberOfStudents(tutor, filename):
-	number = 0
-	with open(filename) as csvfile:
-		csvreader = csv.reader(csvfile)
-		for row in csvreader:
-			if (row[4] == tutor):
-				number += 1
-
-	return number
-
 class Reassign(Frame):
 
 	def __init__(self, master):
-
 		Frame.__init__(self, master)
 		self.grid()
 		self.createTitle()
@@ -49,6 +25,33 @@ class Reassign(Frame):
 					found = True
 			if not (found):
 				mesagebox.askretrycancel("Validation Error", "This is not a valid Student ID")
+	
+	def reassignTutee(identity, course, filename, tutfilename):
+    	with open(tutfilename) as csvfile:
+			csvreader = csv.reader(csvfile)
+			for row in csvreader:
+				if (row[5] == course) and (numberOfStudents(row[0], filename) < row[4]):
+					tutor = row[0]
+					with open(filename) as csvfile:
+						csvwriter = csv.writer(csvfile)
+						csvreader = csv.reader(csvfile)
+						for row in csvreader:
+							if row[0] == identity:
+								row[4] = tutor
+
+	def numberOfStudents(tutor, filename):
+		number = 0
+		with open(filename) as csvfile:
+			csvreader = csv.reader(csvfile)
+			for row in csvreader:
+				if (row[4] == tutor):
+					number += 1
+		return number
+	
+	def openMain(self):
+    	root.destroy()
+		import mainmenu
+		mainmenu.StartWindow()
 
 	def createTitle(self):
 
@@ -66,7 +69,7 @@ class Reassign(Frame):
 
 	 	butSubmit = Button(self, text='OK',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT, command=self.submitClicked)
 	 	butSubmit.grid(row=3, column=1, columnspan=1, sticky=W, pady=10, ipadx=2)
-	 	butCancel = Button(self, text='Cancel',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT)
+	 	butCancel = Button(self, text='Cancel',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT, command=self.openMain)
 	 	butCancel.grid(row=3, column=2, columnspan=1, sticky=E, pady=10, ipadx=2)
 
 def StartWindow():
