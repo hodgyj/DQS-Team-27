@@ -63,7 +63,7 @@ def searchTut(id):
                 if row[3] == "":
                     name = row[1] + ' ' + row[2]
                 else:
-                    name = row[1] + ' ' + row[2] + " " + row[3]
+                    name = row[1] + ' ' + row[3] + " " + row[2]
                     
                 childList.append(name)
                 studentList.append(childList)
