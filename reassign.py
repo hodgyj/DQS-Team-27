@@ -1,6 +1,39 @@
 from tkinter import * 
 from tkinter import messagebox
 import csv
+import shutil
+
+def reassignTutee(course, filename, tutfilename):
+    with open(tutfilename) as csvfile:
+		assigned = False
+		assigned2 = False
+        csvreader = csv.reader(csvfile)
+        for row in csvreader:
+            if (row[5] == course) and (numberOfStudents(row[0], filename) < int(row[4])):
+                tutor = row[0]
+				assigned = True
+
+		if (assigned == False):
+    		for row in csvreader:
+    			if (numberOfStudents(row[0], filename) < int(row[4])):
+                	tutor = row[0]
+					assigned2 = True
+		
+		if (assigned2 == False):
+    		message.showerror("No Tutor Avaliable", "There is no tutor currently avaliable to take this student.")
+		
+    csvfile.close()
+    return tutor
+
+def numberOfStudents(tutor, filename):
+    number = 0
+    with open(filename) as csvfile:
+        csvreader = csv.reader(csvfile)
+        for row in csvreader:
+            if (row[4] == tutor):
+                number += 1
+    csvfile.close()
+    return number
 
 class Reassign(Frame):
 
@@ -10,48 +43,6 @@ class Reassign(Frame):
 		self.createTitle()
 		self.createIdEntry()
 		self.Submit()
-
-	def submitClicked(self):
-		identity = self.entId.get()
-
-		with open(filename) as csvfile:
-			csvwriter = csv.writer(csvfile)
-			csvreader = csv.reader(csvfile)
-			found = False
-			for row in csvreader:
-				if row[0] == identity:
-					row[4] = ""
-					reassignTutee(identity, row[5], filename, tutfilename)
-					found = True
-			if not (found):
-				mesagebox.askretrycancel("Validation Error", "This is not a valid Student ID")
-	
-	def reassignTutee(identity, course, filename, tutfilename):
-		with open(tutfilename) as csvfile:
-			csvreader = csv.reader(csvfile)
-			for row in csvreader:
-				if (row[5] == course) and (numberOfStudents(row[0], filename) < row[4]):
-					tutor = row[0]
-					with open(filename) as csvfile:
-						csvwriter = csv.writer(csvfile)
-						csvreader = csv.reader(csvfile)
-						for row in csvreader:
-							if row[0] == identity:
-								row[4] = tutor
-
-	def numberOfStudents(tutor, filename):
-		number = 0
-		with open(filename) as csvfile:
-			csvreader = csv.reader(csvfile)
-			for row in csvreader:
-				if (row[4] == tutor):
-					number += 1
-		return number
-	
-	def openMain(self):
-		root.destroy()
-		import mainmenu
-		mainmenu.StartWindow()
 
 	def createTitle(self):
 
@@ -71,6 +62,34 @@ class Reassign(Frame):
 	 	butSubmit.grid(row=3, column=1, columnspan=1, sticky=W, pady=10, ipadx=2)
 	 	butCancel = Button(self, text='Cancel',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT, command=self.openMain)
 	 	butCancel.grid(row=3, column=2, columnspan=1, sticky=E, pady=10, ipadx=2)
+
+	def submitClicked(self):
+    		identity = self.entId.get()
+        with open("tutees.csv") as csvfile:
+            with open("temp.csv", "w", newline='') as tempfile:
+                csvreader = csv.reader(csvfile)
+                csvwriter = csv.writer(tempfile)
+                lines = [line for line in csvreader]
+                found = False
+                for line in lines:
+                    if line[0] == identity:
+                        tutor = reassignTutee(line[5], "tutees.csv", "tutors.csv")
+                        line[4] = tutor
+                        found = True
+                        csvwriter.writerows(lines)
+            tempfile.close()
+        csvfile.close()
+            
+        if (found == False):
+            messagebox.showerror("Validation Error", "This is not a valid Student ID")
+        else:
+            shutil.move("temp.csv", "tutees.csv")
+            messagebox.showinfo("Reassigned Student", "Student Successfully Reassigned")
+		
+	def openMain(self):
+		import mainmenu
+		mainmenu.StartWindow()
+	
 
 def StartWindow():
 	root = Tk()
