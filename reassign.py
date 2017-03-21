@@ -27,7 +27,7 @@ class Reassign(Frame):
 				mesagebox.askretrycancel("Validation Error", "This is not a valid Student ID")
 	
 	def reassignTutee(identity, course, filename, tutfilename):
-    	with open(tutfilename) as csvfile:
+		with open(tutfilename) as csvfile:
 			csvreader = csv.reader(csvfile)
 			for row in csvreader:
 				if (row[5] == course) and (numberOfStudents(row[0], filename) < row[4]):
@@ -49,7 +49,7 @@ class Reassign(Frame):
 		return number
 	
 	def openMain(self):
-    	root.destroy()
+		root.destroy()
 		import mainmenu
 		mainmenu.StartWindow()
 

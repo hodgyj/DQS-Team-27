@@ -16,8 +16,12 @@ class Quota(Frame):
         btnAssign = Button(self, text='Display', font=('Segoe UI', 16), background='#2196F3', activebackground='#64B5F6', activeforeground='#FFFFFF', foreground='#FFFFFF')
         btnAssign.grid(row=1, column=1, columnspan=3, pady=20, padx=20)
 
-root = Tk()
-root.title("Quota")
-app = Quota(root)
-app.configure(background="white")
-root.mainloop()
+def StartWindow():
+    root = Tk()
+    root.title("Quota")
+    app = Quota(root)
+    app.configure(background="white")
+    root.mainloop()
+
+if __name__ == "__main__":
+    import login

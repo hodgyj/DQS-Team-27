@@ -37,8 +37,12 @@ class Assign(Frame):
 		if (self.tutor.index("end") == 0) or (self.tutee.index("end") == 0):
 			strMsgReassign = "Both fields must be completed."
 
-root = Tk()
-root.title("Assign")
-app = Assign(root)
-app.configure(background="white")
-root.mainloop() 
+def StartWindow():
+	root = Tk()
+	root.title("Assign")
+	app = Assign(root)
+	app.configure(background="white")
+	root.mainloop() 
+
+if __name__ == "__main__":
+    import login

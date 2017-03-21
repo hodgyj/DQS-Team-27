@@ -1,8 +1,6 @@
 from tkinter import *
 from PIL import Image, ImageTk
 
-root = Tk()
-
 class MainMenu(Frame):
     # GUI setup
     def __init__(self, master):
@@ -12,20 +10,20 @@ class MainMenu(Frame):
         self.createButtons()
 
     def openAssign(self):
-        root.destroy()
         import assign
+        assign.StartWindow()
     
     def openReassign(self):
-        root.destroy()
         import reassign
         reassign.StartWindow()
 
     def openSearch(self):
-        root.destroy()
         import search
+        search.StartWindow()
 
     def openQuota(self):
-        print("no")
+        import quota1
+        quota1.StartWindow()
     
 
     def createTitle(self):
@@ -44,6 +42,7 @@ class MainMenu(Frame):
         btnQuota.grid(row=3, column=3)
 
 def StartWindow():
+    root = Tk()
     root.title("Tutor & Tutee")
     root.resizable(0,0)
     app = MainMenu(root)
