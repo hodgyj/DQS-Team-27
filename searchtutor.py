@@ -1,5 +1,6 @@
 from tkinter import *
-from PIL import Image, ImageTk
+from tkinter import messagebox
+import csv
 
 class Search(Frame):
     # GUI setup
@@ -20,7 +21,8 @@ class Search(Frame):
         txtSearch = Entry(self, font=('Segoe UI Light', 16), foreground="#2196F3", background="white")
         txtSearch.grid(row=2, column=1, sticky=W+E, ipadx=20)
 
-        btnSearch = Button(self, text='Search', font=('Segoe UI', 14), background='#2196F3', activebackground='#64B5F6', activeforeground='#FFFFFF', foreground='#FFFFFF')
+        btnSearch = Button(self, text='Search', font=('Segoe UI', 14), background='#2196F3', activebackground='#64B5F6', activeforeground='#FFFFFF',
+                           foreground='#FFFFFF', command = lambda: input_test(txtSearch.get()))
         btnSearch.grid(row=3, column=0, sticky=W+E, ipadx=10, pady=15, padx=10)
         btnCancel = Button(self, text='Cancel', font=('Segoe UI', 14), background='#2196F3', activebackground='#64B5F6', activeforeground='#FFFFFF', foreground='#FFFFFF')
         btnCancel.grid(row=3, column=2, sticky=W+E, ipadx=10, padx=10)
@@ -32,6 +34,23 @@ def StartWindow():
     app = Search(root)
     app.configure(background="white")
     root.mainloop()
+    
+def input_test(input):
+
+    with open ('tutors.csv','rt') as csvfile:
+        csvReader = csv.reader(csvfile)
+        for row in csvReader:
+
+            if input in row[0]:
+                searchTut(input)
+                break
+
+            else:
+                messagebox.showerror("Input Error", "No such ID")
+                break
+def searchTut(id):
+    return 0 
+    """ Doesnt do anything atm """
 
 if __name__ == "__main__":
     import login
