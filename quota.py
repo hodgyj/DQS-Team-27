@@ -92,4 +92,5 @@ def StartWindow():
     app.configure(background="white")
     root.mainloop()
 
-StartWindow()
+if __name__ == "__main__":
+    import login
