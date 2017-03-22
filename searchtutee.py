@@ -10,7 +10,6 @@ class Search(Frame):
         self.grid()
         self.createTitle()
         self.createInput()
-   
 
     def createTitle(self):
         lblTitle = Label(self, text='Tutee Search', font=('Segoe UI Light', 32), background="white")
@@ -24,7 +23,7 @@ class Search(Frame):
         txtSearch.grid(row=2, column=1, sticky=W+E, ipadx=20)
 
         btnSearch = Button(self, text='Search', font=('Segoe UI', 14), background='#2196F3', activebackground='#64B5F6', activeforeground='#FFFFFF', foreground='#FFFFFF',
-                           command = lambda : self.destroy())
+                           command = lambda : input_test(txtSearch.get()))
         btnSearch.grid(row=3, column=0, sticky=W+E, ipadx=10, pady=15, padx=10)
         btnCancel = Button(self, text='Cancel', font=('Segoe UI', 14), background='#2196F3', activebackground='#64B5F6', activeforeground='#FFFFFF', foreground='#FFFFFF')
         btnCancel.grid(row=3, column=2, sticky=W+E, ipadx=10, padx=10)
@@ -134,3 +133,4 @@ def StartTree(info):
 
 if __name__ == "__main__":
     import login
+
