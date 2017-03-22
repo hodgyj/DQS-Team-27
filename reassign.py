@@ -3,27 +3,42 @@ from tkinter import messagebox
 import csv
 import shutil
 
+root = Tk()
+
 def reassignTutee(course, filename, tutfilename):
     with open(tutfilename) as csvfile:
-        assigned = False
-        assigned2 = False
         csvreader = csv.reader(csvfile)
+        assigned = False
+
         for row in csvreader:
             if (row[5] == course) and (numberOfStudents(row[0], filename) < int(row[4])):
                 tutor = row[0]
+                tutname = namer(row[2], row[3], row[1])
                 assigned = True
+                break
 
-        if (assigned == False):
+        csvfile.seek(0)
+
+        if (assigned == False): 
             for row in csvreader:
                 if (numberOfStudents(row[0], filename) < int(row[4])):
                     tutor = row[0]
+                    tutname = namer(row[2], row[3], row[1])
                     assigned = True
-        
-        if (assigned == False):
-            messagebox.showerror("No Tutor Avaliable", "There is no tutor currently avaliable to take this student.")
+                    break
+            
+        if (assigned == False):      
+            tutor = ""
+            tutname = ""
         
     csvfile.close()
-    return tutor
+    return tutor, tutname
+
+def namer(firs, secon, last):
+    if (secon == ""):
+        return (firs + " " + last)
+    else:
+        return (firs + " " + secon + " " + last)
 
 def numberOfStudents(tutor, filename):
     number = 0
@@ -65,6 +80,7 @@ class Reassign(Frame):
 
     def submitClicked(self):
         identity = self.entId.get()
+        notutor = False
         with open("tutees.csv") as csvfile:
             with open("temp.csv", "w", newline='') as tempfile:
                 csvreader = csv.reader(csvfile)
@@ -73,26 +89,30 @@ class Reassign(Frame):
                 found = False
                 for line in lines:
                     if line[0] == identity:
-                        tutor = reassignTutee(line[5], "tutees.csv", "tutors.csv")
-                        line[4] = tutor
                         found = True
-                        csvwriter.writerows(lines)
+                        tutor, tutname = reassignTutee(line[5], "tutees.csv", "tutors.csv")
+                        if (tutor == ""):
+                            messagebox.showerror("No Tutor Avaliable", "There is no tutor currently avaliable to take this student.")
+                            notutor = True
+                        else:
+                            name = line[2] + " " + line[3] + " " + line[1]
+                            line[4] = tutor
+                            csvwriter.writerows(lines)
             tempfile.close()
         csvfile.close()
             
         if (found == False):
             messagebox.showerror("Validation Error", "This is not a valid Student ID")
-        else:
+        elif (notutor == False):
             shutil.move("temp.csv", "tutees.csv")
-            messagebox.showinfo("Reassigned Student", "Student Successfully Reassigned")
-        
+            messagebox.showinfo("Reassigned Student Successfully", "Student:   " + name + ", " + identity + " \nReassigned to \nTutor:       " + tutname + ", " + tutor)
+
+        self.openMain()
+
     def openMain(self):
-        import mainmenu
-        mainmenu.StartWindow()
-    
+        root.destroy()
 
 def StartWindow():
-    root = Tk()
     root.title("Reassign Student")
     root.resizable(0,0)
     app = Reassign(root)
