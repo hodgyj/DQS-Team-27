@@ -21,8 +21,8 @@ class MainMenu(Frame):
         search.StartWindow()
 
     def openQuota(self):
-        import quota1
-        quota1.StartWindow()
+        import quota
+        quota.StartWindow()
     
 
     def createTitle(self):
