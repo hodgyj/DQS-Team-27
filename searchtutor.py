@@ -67,7 +67,47 @@ def searchTut(id):
                     
                 childList.append(name)
                 studentList.append(childList)
-        return studentList
+        StartTree(studentList)
+
+
+
+
+"""
+Creates a new window, to output the table (should the code below be in a different file?)
+"""
+
+
+
+class Treelist(Frame):
+    # GUI setup
+    def __init__(self, master,sList):
+        Frame.__init__(self, master)
+        self.pack()
+        self.list(sList)
+
+
+
+    def list(self,sList):
+        tree = ttk.Treeview(self)
+        tree['show'] = 'headings'
+        tree["columns"] = ("one", "two")
+        tree.column("one", width=100)
+        tree.column("two", width=100)
+        tree.heading("one", text="coulmn A")
+        tree.heading("two", text="column B")
+
+        for x in sList:
+            tree.insert("", 0, text="Line 1", values=(x[0], x[1]))
+
+        tree.pack()
+
+def StartTree(sList):
+    root = Tk()
+    root.title("TutorList")
+    root.resizable(0, 0)
+    app = Treelist(root,sList)
+    app.configure(background="white")
+    root.mainloop()
 
 if __name__ == "__main__":
     import login
