@@ -69,7 +69,12 @@ class Quota(Frame):
         self.columnconfigure(5, minsize=20)
 
     def getTutorName(self, tutorId):
-        with open('Tutors.csv') as csvfile:
+        # Get names of the csv files
+        with open('fileLoc.txt') as txtFile:
+            fileLocations = txtFile.readlines()
+            fileLocations = [line.strip() for line in fileLocations]
+
+        with open(fileLocations[0]) as csvfile:
             reader = csv.reader(csvfile)
             for item in reader:
                 if item[0] == tutorId:
