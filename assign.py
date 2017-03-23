@@ -27,13 +27,7 @@ class Assign(Frame):
 
 	def buttons(self):
 	 	butSubmit = Button(self, text='OK',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT, command=self.submitClicked)
-	 	butSubmit.grid(row=4, column=0, columnspan=1, pady=10, ipadx=2)
-	 	butCancel = Button(self, text='Cancel',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT, command=self.cancel)
-	 	butCancel.grid(row=4, column=1, columnspan=1, pady=10, ipadx=2)
-
-	def cancel(self):
-		root.destroy()
-		
+	 	butSubmit.grid(row=4, column=1, columnspan=2, pady=10, ipadx=2)
 
 	def submitClicked(self):
 			csvFileName = self.tutee.get()
