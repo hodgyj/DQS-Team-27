@@ -71,6 +71,7 @@ class Assign(Frame):
 
 				shutil.move(tempFileName, csvFileName)
 				root.destroy()
+				messagebox.showinfo("Successful", "All tutees assigned a tutor.")
 
 root = Tk()
 root.title("Assign")
