@@ -72,7 +72,7 @@ class Reassign(Frame):
     def Submit(self):
 
          butSubmit = Button(self, text='OK',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT, command=self.submitClicked)
-         butSubmit.grid(row=3, column=2, columnspan=1, sticky=W+E, pady=10, ipadx=2)
+         butSubmit.grid(row=3, column=1, columnspan=2, sticky=W+E, pady=10, ipadx=2)
 
     def submitClicked(self):
         identity = self.entId.get()
@@ -83,19 +83,19 @@ class Reassign(Frame):
             found = False
             for line in lines:
                 if line[0] == identity:
-                    with open("temp.csv", "w", newline='') as tempfile:
-                        csvwriter = csv.writer(tempfile)
-                        found = True
-                        tutor, tutname = reassignTutee(line[5], "tutees.csv", "tutors.csv")
-                        if (tutor == ""):
-                            messagebox.showerror("No Tutor Avaliable", "There is no tutor currently avaliable to take this student.")
-                            notutor = True
-                        else:
+                    found = True
+                    tutor, tutname = reassignTutee(line[5], "tutees.csv", "tutors.csv")
+                    if (tutor == ""):
+                        messagebox.showerror("No Tutor Avaliable", "There is no tutor currently avaliable to take this student.")
+                        notutor = True
+                    else:
+                        with open("temp.csv", "w", newline='') as tempfile:
+                            csvwriter = csv.writer(tempfile)
                             name = line[2] + " " + line[3] + " " + line[1]
                             line[4] = tutor
                             csvwriter.writerows(lines)
-                    break
-            tempfile.close()
+                        tempfile.close()
+                    break  
         csvfile.close()
             
         if (found == False):
