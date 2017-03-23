@@ -1,6 +1,7 @@
 from tkinter import *
 import csv
 import shutil
+import random
 
 class Assign(Frame):
 	def __init__(self, master):
@@ -50,30 +51,26 @@ class Assign(Frame):
 				tutorList = list(tutor)
 				tuteeList = list(tutee)
 
-				print(tutorList)
-
 				with open(tempFileName, 'w', newline='') as tempfile:
 					wrt = csv.writer(tempfile)
-					for row in tutorList[1:]:
+					for row in tutorList:
 						numberOfTutees = int(row[4])
 						numAssigned = 0
-						numStudent = -1
 						for row2 in tuteeList:
-							numStudent += 1
 							degGroup = row[5]
 							tutorID = row[0]
 							degGroup2 = row2[5]
 							if ((degGroup == degGroup2) and (numAssigned < numberOfTutees)):
 								numAssigned += 1
 								row2[4] = tutorID
-							elif(degGroup == degGroup2):
-								tutorList[numStudent][4] = tutorID
-
+							elif(numAssigned >= numberOfTutees):
+								row2[4] = tutorList[random.randrange(0, 3)][0]
 					
 					for row in tuteeList:
 						wrt.writerow(row)
 
 				shutil.move(tempFileName, csvFileName)
+				root.destroy()
 
 root = Tk()
 root.title("Assign")
@@ -84,6 +81,5 @@ root.mainloop()
 
 if __name__ == "__main__":
     import login 
-
 
 
