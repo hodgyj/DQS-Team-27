@@ -27,7 +27,13 @@ class Assign(Frame):
 
 	def buttons(self):
 	 	butSubmit = Button(self, text='OK',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT, command=self.submitClicked)
-	 	butSubmit.grid(row=4, column=1, columnspan=2, pady=10, ipadx=2)
+	 	butSubmit.grid(row=4, column=0, columnspan=1, pady=10, ipadx=2)
+	 	butCancel = Button(self, text='Cancel',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT, command=self.cancel)
+	 	butCancel.grid(row=4, column=1, columnspan=1, pady=10, ipadx=2)
+
+	def cancel(self):
+		root.destroy()
+		
 
 	def submitClicked(self):
 			csvFileName = self.tutee.get()
@@ -64,16 +70,14 @@ class Assign(Frame):
 						wrt.writerow(row)
 
 				shutil.move(tempFileName, csvFileName)
-				self.tutor.delete(0, END)
-				self.tutee.delete(0, END)
-				messagebox.showinfo("Successful", "All tutees assigned a tutor.")
-def StartWindow():
-	root = Tk()
-	root.title("Assign")
-	root.resizable(0,0)
-	app = Assign(root)
-	app.configure(background="white")
-	root.mainloop()
+				root.destroy()
+
+root = Tk()
+root.title("Assign")
+root.resizable(0,0)
+app = Assign(root)
+app.configure(background="white")
+root.mainloop()
 
 if __name__ == "__main__":
     import login 
