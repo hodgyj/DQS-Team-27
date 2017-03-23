@@ -3,13 +3,13 @@ from tkinter import messagebox
 import csv
 import shutil
 
-def reassignTutee(course, filename, tutfilename):
-    with open(tutfilename) as csvfile:
+def reassignTutee(course, tutorsfile, tuteesfile):
+    with open(tutorsfile) as csvfile:
         csvreader = csv.reader(csvfile)
         assigned = False
         # for each tutor if the course is the same as course student ias taking and they still have space left for more tutess, assign
         for row in csvreader:
-            if (row[5] == course) and (numberOfStudents(row[0], filename) < int(row[4])):
+            if (row[5] == course) and (numberOfStudents(row[0], tuteesfile) < int(row[4])):
                 tutor = row[0]
                 tutname = namer(row[2], row[3], row[1])
                 assigned = True
@@ -21,7 +21,7 @@ def reassignTutee(course, filename, tutfilename):
         # if student still hasn't been assigned, assign to tutor with enough space for more tutees
         if (assigned == False): 
             for row in csvreader:
-                if (numberOfStudents(row[0], filename) < int(row[4])):
+                if (numberOfStudents(row[0], tuteesfile) < int(row[4])):
                     tutor = row[0]
                     tutname = namer(row[2], row[3], row[1])
                     assigned = True
@@ -36,6 +36,21 @@ def reassignTutee(course, filename, tutfilename):
     csvfile.close()
     return tutor, tutname
 
+def filenames():
+    file = open("fileLoc.txt", "r")
+
+    tutorfile = str(file.readlines(1))
+    tuteefile = str(file.readlines(2))
+    
+    for ch in ["'", "[", "]", "n", "\\"]:
+        if ch in tutorfile:
+            tutorfile = tutorfile.replace(ch, "")
+        if ch in tuteefile:
+            tuteefile = tuteefile.replace(ch, "")
+
+    return tutorfile, tuteefile
+
+
 def namer(firs, secon, last):
     # if student doesn't have a middle name set full name to just one space between first and sur name
     if (secon == ""):
@@ -43,10 +58,10 @@ def namer(firs, secon, last):
     else:
         return (firs + " " + secon + " " + last)
 
-def numberOfStudents(tutor, filename):
+def numberOfStudents(tutor, tuteesfile):
     # check how many tutees the tutor currently has assigned to them, by iterating through the tutee file
     number = 0
-    with open(filename) as csvfile:
+    with open(tuteesfile) as csvfile:
         csvreader = csv.reader(csvfile)
         for row in csvreader:
             if (row[4] == tutor):
@@ -81,10 +96,11 @@ class Reassign(Frame):
          butSubmit.grid(row=3, column=1, columnspan=2, sticky=W+E, pady=10, ipadx=2)
 
     def submitClicked(self):
+        tutorsfile, tuteesfile = filenames()
         # collect user input and open tutee file, create a list out of it and iterate through list
         identity = self.entId.get()
         notutor = False
-        with open("tutees.csv") as csvfile:
+        with open(tuteesfile) as csvfile:
             csvreader = csv.reader(csvfile)
             lines = [line for line in csvreader]
             found = False
@@ -92,7 +108,7 @@ class Reassign(Frame):
                 if line[0] == identity:
                     # if id is found in file, attempt to reassign, if not possible output error message
                     found = True
-                    tutor, tutname = reassignTutee(line[5], "tutees.csv", "tutors.csv")
+                    tutor, tutname = reassignTutee(line[5], tutorsfile, tuteesfile)
                     if (tutor == ""):
                         messagebox.showerror("No Tutor Avaliable", "There is no tutor currently avaliable to take this student.")
                         notutor = True
@@ -111,7 +127,7 @@ class Reassign(Frame):
             messagebox.showerror("Validation Error", "This is not a valid Student ID")
         elif (notutor == False):
             # override tutees file with temp file and delete temp file
-            shutil.move("temp.csv", "tutees.csv")
+            shutil.move("temp.csv", tuteesfile)
             messagebox.showinfo("Reassigned Student Successfully", "Student:   " + name + ", " + identity + " \nReassigned to \nTutor:       " + tutname + ", " + tutor)
             self.entId.delete(0, END)
 
