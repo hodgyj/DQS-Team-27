@@ -7,7 +7,7 @@ def reassignTutee(course, filename, tutfilename):
     with open(tutfilename) as csvfile:
         csvreader = csv.reader(csvfile)
         assigned = False
-
+        # for each tutor if the course is the same as course student ias taking and they still have space left for more tutess, assign
         for row in csvreader:
             if (row[5] == course) and (numberOfStudents(row[0], filename) < int(row[4])):
                 tutor = row[0]
@@ -15,8 +15,10 @@ def reassignTutee(course, filename, tutfilename):
                 assigned = True
                 break
 
+        # return to start of file for second iteration 
         csvfile.seek(0)
 
+        # if student still hasn't been assigned, assign to tutor with enough space for more tutees
         if (assigned == False): 
             for row in csvreader:
                 if (numberOfStudents(row[0], filename) < int(row[4])):
@@ -24,21 +26,25 @@ def reassignTutee(course, filename, tutfilename):
                     tutname = namer(row[2], row[3], row[1])
                     assigned = True
                     break
-            
+        
+        # if student still hasn't been assigned, leave tutor id and name variables blank
         if (assigned == False):      
             tutor = ""
             tutname = ""
-        
+    
+    # close file and return tutor's id and name
     csvfile.close()
     return tutor, tutname
 
 def namer(firs, secon, last):
+    # if student doesn't have a middle name set full name to just one space between first and sur name
     if (secon == ""):
         return (firs + " " + last)
     else:
         return (firs + " " + secon + " " + last)
 
 def numberOfStudents(tutor, filename):
+    # check how many tutees the tutor currently has assigned to them, by iterating through the tutee file
     number = 0
     with open(filename) as csvfile:
         csvreader = csv.reader(csvfile)
@@ -75,6 +81,7 @@ class Reassign(Frame):
          butSubmit.grid(row=3, column=1, columnspan=2, sticky=W+E, pady=10, ipadx=2)
 
     def submitClicked(self):
+        # collect user input and open tutee file, create a list out of it and iterate through list
         identity = self.entId.get()
         notutor = False
         with open("tutees.csv") as csvfile:
@@ -83,6 +90,7 @@ class Reassign(Frame):
             found = False
             for line in lines:
                 if line[0] == identity:
+                    # if id is found in file, attempt to reassign, if not possible output error message
                     found = True
                     tutor, tutname = reassignTutee(line[5], "tutees.csv", "tutors.csv")
                     if (tutor == ""):
@@ -90,6 +98,7 @@ class Reassign(Frame):
                         notutor = True
                     else:
                         with open("temp.csv", "w", newline='') as tempfile:
+                            # create new file to hold new list of tutees with updated tutor for student
                             csvwriter = csv.writer(tempfile)
                             name = line[2] + " " + line[3] + " " + line[1]
                             line[4] = tutor
@@ -97,10 +106,11 @@ class Reassign(Frame):
                         tempfile.close()
                     break  
         csvfile.close()
-            
+
         if (found == False):
             messagebox.showerror("Validation Error", "This is not a valid Student ID")
         elif (notutor == False):
+            # override tutees file with temp file and delete temp file
             shutil.move("temp.csv", "tutees.csv")
             messagebox.showinfo("Reassigned Student Successfully", "Student:   " + name + ", " + identity + " \nReassigned to \nTutor:       " + tutname + ", " + tutor)
             self.entId.delete(0, END)
