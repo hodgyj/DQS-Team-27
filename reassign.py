@@ -3,8 +3,6 @@ from tkinter import messagebox
 import csv
 import shutil
 
-root = Tk()
-
 def reassignTutee(course, filename, tutfilename):
     with open(tutfilename) as csvfile:
         csvreader = csv.reader(csvfile)
@@ -75,7 +73,7 @@ class Reassign(Frame):
 
          butSubmit = Button(self, text='OK',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT, command=self.submitClicked)
          butSubmit.grid(row=3, column=1, columnspan=1, sticky=W, pady=10, ipadx=2)
-         butCancel = Button(self, text='Cancel',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT, command=self.openMain)
+         butCancel = Button(self, text='Cancel',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT)
          butCancel.grid(row=3, column=2, columnspan=1, sticky=E, pady=10, ipadx=2)
 
     def submitClicked(self):
@@ -106,13 +104,9 @@ class Reassign(Frame):
         elif (notutor == False):
             shutil.move("temp.csv", "tutees.csv")
             messagebox.showinfo("Reassigned Student Successfully", "Student:   " + name + ", " + identity + " \nReassigned to \nTutor:       " + tutname + ", " + tutor)
-
-        self.openMain()
-
-    def openMain(self):
-        root.destroy()
-
+            self.entId.delete(0, END)
 def StartWindow():
+    root = Tk()
     root.title("Reassign Student")
     root.resizable(0,0)
     app = Reassign(root)

@@ -51,7 +51,7 @@ class Quota(Frame):
         style.configure('Treeview', font=('Segoe UI', 14))
         style.configure('Treeview', rowheight=30)
 
-        self.tblQuotas = ttk.Treeview(self, columns=2, height=5, padding=5, selectmode='extended', style='Treeview')
+        self.tblQuotas = ttk.Treeview(self, columns=2, height=8, padding=5, selectmode='extended', style='Treeview')
         self.tblQuotas.heading('#0', text='Tutor', anchor=CENTER)
         self.tblQuotas.heading('#1', text='Number of Tutees', anchor=CENTER)
         

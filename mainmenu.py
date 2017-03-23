@@ -13,8 +13,9 @@ class MainMenu(Frame):
         assign.StartWindow()
     
     def openReassign(self):
-        import reassign
-        reassign.StartWindow()
+        import reassign as reassignForm
+        test = reassignForm
+        test.StartWindow()
 
     def openSearch(self):
         import search

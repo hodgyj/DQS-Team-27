@@ -72,13 +72,13 @@ class Assign(Frame):
 				shutil.move(tempFileName, csvFileName)
 				root.destroy()
 				messagebox.showinfo("Successful", "All tutees assigned a tutor.")
-
-root = Tk()
-root.title("Assign")
-root.resizable(0,0)
-app = Assign(root)
-app.configure(background="white")
-root.mainloop()
+def StartWindow():
+	root = Tk()
+	root.title("Assign")
+	root.resizable(0,0)
+	app = Assign(root)
+	app.configure(background="white")
+	root.mainloop()
 
 if __name__ == "__main__":
     import login 
