@@ -41,15 +41,15 @@ class Assign(Frame):
 			csvFileName = self.tutee.get()
 			tempFileName = "tempAssign.csv"
 
-			text_file = open("fileLoc.txt", "w")
-			text_file.write(self.tutor.get() + "\n" + self.tutee.get())
-			text_file.close()
-
 			if((self.tutor.index("end") == 0) or (self.tutee.index("end") == 0)):
 				messagebox.showerror("Validation Error", "CSV file required in both fields.")
 			else:
 				file1 = open(self.tutor.get(), 'r')
 				file2 = open(self.tutee.get(), 'r')
+
+				text_file = open("fileLoc.txt", "w")
+				text_file.write(self.tutor.get() + "\n" + self.tutee.get())
+				text_file.close()
 
 				tutor = csv.reader(file1)
 				tutee = csv.reader(file2)
