@@ -46,39 +46,44 @@ def StartWindow():
 
 def input_test(userinput):
     tutorInfo = []
-    with open('tutors.csv', 'rt') as csvfile:
-        csvReader = csv.reader(csvfile)
-        found = False
-        for row in csvReader:
+    with open('fileLoc.txt') as txtFile:
+           fileLocations = txtFile.readlines()
+           fileLocations = [line.strip() for line in fileLocations]
 
-            if userinput == row[0]:
-                found = True
-                tutorInfo.append(row[0])
-                """Dealing with middle names"""
 
-                if row[3] == "":
-                    name = row[1] + ' ' + row[2]
-                else:
-                    name = row[1] + ' ' + row[3] + " " + row[2]
-                tutorInfo.append(name)
-                searchTut(userinput,tutorInfo)
+    with open(fileLocations[0]) as tutorFile:
 
-                break
-        if not found:
-            messagebox.showerror("Input Error", "No such ID")
+        with open(fileLocations[1]) as tuteeFile:
+            tutorReader = csv.reader(tutorFile)
+            tuteeReader = csv.reader(tuteeFile)
+            found = False
+            for row in tutorReader:
+
+                if userinput == row[0]:
+                    found = True
+                    tutorInfo.append(row[0])
+                    """Dealing with middle names"""
+
+                    if row[3] == "":
+                        name = row[1] + ' ' + row[2]
+                    else:
+                        name = row[1] + ' ' + row[3] + " " + row[2]
+                    tutorInfo.append(name)
+                    searchTut(userinput,tutorInfo,tuteeReader)
+
+                    break
+            if not found:
+                messagebox.showerror("Input Error", "No such ID")
        
 
-        csvfile.close()
+
 """Gets all the students in a list fot the given tutor"""
 
-def searchTut(tutid,info):
-
+def searchTut(tutid,info,tuteeFile):
     studentList = []
-    with open('tutees.csv', 'rt') as csvfile:
-        csvReader = csv.reader(csvfile)
-        for row in csvReader:
-            childList =[]
-            if tutid == row[4]:
+    for row in tuteeFile:
+        childList =[]
+        if tutid == row[4]:
                 childList.append(row[0])
 
                 """Dealing with middle names"""
@@ -89,7 +94,7 @@ def searchTut(tutid,info):
                     name = row[1] + ' ' + row[3] + " " + row[2]
                 childList.append(name)
                 studentList.append(childList)
-        StartTree(studentList,info)
+    StartTree(studentList,info)
 
 
 
@@ -138,4 +143,6 @@ def StartTree(sList,info):
 
 if __name__ == "__main__":
     import login
+
+
 
