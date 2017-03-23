@@ -50,20 +50,24 @@ class Assign(Frame):
 				tutorList = list(tutor)
 				tuteeList = list(tutee)
 
-				numberOfTutees = int(row[4])
+				print(tutorList)
 
 				with open(tempFileName, 'w', newline='') as tempfile:
 					wrt = csv.writer(tempfile)
-					for row in tutorList:
+					for row in tutorList[1:]:
+						numberOfTutees = int(row[4])
 						numAssigned = 0
+						numStudent = -1
 						for row2 in tuteeList:
+							numStudent += 1
 							degGroup = row[5]
 							tutorID = row[0]
 							degGroup2 = row2[5]
 							if ((degGroup == degGroup2) and (numAssigned < numberOfTutees)):
 								numAssigned += 1
 								row2[4] = tutorID
-							else:
+							elif(degGroup == degGroup2):
+								tutorList[numStudent][4] = tutorID
 
 					
 					for row in tuteeList:
