@@ -144,18 +144,8 @@ def StartTree(info):
 
 
 
-
 if __name__ == "__main__":
     import login
 
-
-
-
-
-
-
-
-if __name__ == "__main__":
-    import login
 
 
