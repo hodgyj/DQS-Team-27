@@ -72,9 +72,7 @@ class Reassign(Frame):
     def Submit(self):
 
          butSubmit = Button(self, text='OK',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT, command=self.submitClicked)
-         butSubmit.grid(row=3, column=1, columnspan=1, sticky=W, pady=10, ipadx=2)
-         butCancel = Button(self, text='Cancel',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT)
-         butCancel.grid(row=3, column=2, columnspan=1, sticky=E, pady=10, ipadx=2)
+         butSubmit.grid(row=3, column=2, columnspan=1, sticky=W+E, pady=10, ipadx=2)
 
     def submitClicked(self):
         identity = self.entId.get()
@@ -105,6 +103,7 @@ class Reassign(Frame):
             shutil.move("temp.csv", "tutees.csv")
             messagebox.showinfo("Reassigned Student Successfully", "Student:   " + name + ", " + identity + " \nReassigned to \nTutor:       " + tutname + ", " + tutor)
             self.entId.delete(0, END)
+
 def StartWindow():
     root = Tk()
     root.title("Reassign Student")
