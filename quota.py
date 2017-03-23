@@ -3,7 +3,7 @@ from tkinter import ttk
 import csv
 
 def getQuota():
-    # Get names of the csv files
+    # get names of the csv files
     with open('fileLoc.txt') as txtFile:
         fileLocations = txtFile.readlines()
         fileLocations = [line.strip() for line in fileLocations]
@@ -16,13 +16,17 @@ def getQuota():
             tutorList = list(tutorReader)
             tuteeList = list(tuteeReader)
 
-    tutorDict = {}
-
+    tutorDict = {} # 
+    
+    # iterates through Tutor csv file
     for tutorRow in tutorList:
-        quotaDict = {"degrees": {}, "years": {}, "num": 0}
+        quotaDict = {"degrees": {}, "years": {}, "num": 0} #
+        # iterates through Tutee csv file
         for tuteeRow in tuteeList:
+            # if the student tutor group is equal to tutor ID
             if tuteeRow[4] == tutorRow[0]:
-                if tuteeRow[5] in quotaDict["degrees"]:
+                # and student degree is equal to ? 
+                if tuteeRow[5] in quotaDict["degrees"]:  
                     quotaDict["degrees"][tuteeRow[5]] += 1
                 else:
                     quotaDict["degrees"][tuteeRow[5]] = 1
@@ -69,7 +73,7 @@ class Quota(Frame):
         self.columnconfigure(5, minsize=20)
 
     def getTutorName(self, tutorId):
-        # Get names of the csv files
+        # get names of the csv files
         with open('fileLoc.txt') as txtFile:
             fileLocations = txtFile.readlines()
             fileLocations = [line.strip() for line in fileLocations]
@@ -84,8 +88,10 @@ class Quota(Frame):
             return ""
 
     def displayQuota(self):
-        quotaDict = getQuota() # variable gets the function which calculates quota for each Tutor
-
+        # variable imports the function that contains quota information
+        quotaDict = getQuota()
+        
+        # Retrives tutor name, 
         for tutor, tutorDict in quotaDict.items():
             tutorName = self.getTutorName(tutor)
             rowId = self.tblQuotas.insert('', 'end', text=tutorName, values=(tutorDict['num']))
