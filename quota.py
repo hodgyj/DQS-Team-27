@@ -3,9 +3,13 @@ from tkinter import ttk
 import csv
 
 def getQuota():
-
-    with open('Tutors.csv') as tutorFile:
-        with open('Tutees.csv') as tuteeFile:
+    # Get names of the csv files
+    with open('fileLoc.txt') as txtFile:
+        fileLocations = txtFile.readlines()
+        fileLocations = [line.strip() for line in fileLocations]
+    
+    with open(fileLocations[0]) as tutorFile:
+        with open(fileLocations[1]) as tuteeFile:
             tutorReader = csv.reader(tutorFile)
             tuteeReader = csv.reader(tuteeFile)
 
