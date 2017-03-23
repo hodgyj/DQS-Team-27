@@ -33,6 +33,7 @@ class Search(Frame):
         btnCancel.grid(row=3, column=2, sticky=W + E, ipadx=10, padx=10)
 
 
+
 def StartWindow():
     root = Tk()
     root.title("Search")
@@ -47,6 +48,7 @@ def input_test(input):
     tutorInfo = []
     with open('tutors.csv', 'rt') as csvfile:
         csvReader = csv.reader(csvfile)
+
         for row in csvReader:
 
             if input in row[0]:
@@ -63,9 +65,11 @@ def input_test(input):
 
                 break
 
-            else:
-                messagebox.showerror("Input Error", "No such ID")
-                break
+        Tk().withdraw()
+        messagebox.showerror("Input Error", "No such ID")
+
+
+        csvfile.close()
 """Gets all the students in a list fot the given tutor"""
 
 def searchTut(id,info):
@@ -130,5 +134,9 @@ def StartTree(sList,info):
     root.mainloop()
 
 
+
+
+
 if __name__ == "__main__":
     import login
+
