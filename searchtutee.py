@@ -125,7 +125,7 @@ class Treelist(Frame):
         tree.column("six", width=200)
         tree.heading("one", text="student ID")
         tree.heading("two", text="Name")
-        tree.heading("three", text = "Module")
+        tree.heading("three", text = "Degree")
         tree.heading("four", text = "Year")
         tree.heading("five", text = "TutorID")
         tree.heading("six", text = "Tutor Name")
