@@ -55,7 +55,7 @@ class Quota(Frame):
         style.configure('Treeview', rowheight=30)
 
         self.tblQuotas = ttk.Treeview(self, columns=2, height=5, padding=5, selectmode='extended', style='Treeview')
-        self.tblQuotas.heading('#0', text='Tutor ID', anchor=CENTER)
+        self.tblQuotas.heading('#0', text='Tutor', anchor=CENTER)
         self.tblQuotas.heading('#1', text='Number of Tutees', anchor=CENTER)
         
         self.tblQuotas.grid(row=1, column=1, columnspan=2, pady=10)
@@ -67,12 +67,22 @@ class Quota(Frame):
         self.columnconfigure(0, minsize=20)
         self.columnconfigure(5, minsize=20)
 
+    def getTutorName(self, tutorId):
+        with open('Tutors.csv') as csvfile:
+            reader = csv.reader(csvfile)
+            for item in reader:
+                if item[0] == tutorId:
+                    tutorName = item[0] + " - " + item[1] + ", " + item[2] 
+                    return tutorName
+
+            return ""
 
     def displayQuota(self):
         quotaDict = getQuota()
 
         for tutor, tutorDict in quotaDict.items():
-            rowId = self.tblQuotas.insert('', 'end', text=tutor, values=(tutorDict['num']))
+            tutorName = self.getTutorName(tutor)
+            rowId = self.tblQuotas.insert('', 'end', text=tutorName, values=(tutorDict['num']))
             degreeId = self.tblQuotas.insert(rowId, 'end', text='Degrees')
             yearId = self.tblQuotas.insert(rowId, 'end', text='Years')
 
