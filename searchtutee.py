@@ -29,13 +29,16 @@ class Search(Frame):
         btnCancel.grid(row=3, column=2, sticky=W+E, ipadx=10, padx=10)
 
 
-def input_test(input):
+def input_test(userinput):
     studentInfo = []
     with open('tutees.csv', 'rt') as csvfile:
         csvReader = csv.reader(csvfile)
+
+        found = False
         for row in csvReader:
 
-            if input in row[0]:
+            if userinput == row[0]:
+                found = True
                 studentInfo.append(row[0])
                 """Dealing with middle names"""
 
@@ -49,9 +52,8 @@ def input_test(input):
                 SearchTutee(studentInfo,row[4])
 
                 break
-
-        Tk().withdraw()
-        messagebox.showerror("Input Error", "No such ID")
+        if not found:
+            messagebox.showerror("Input Error", "No such ID")
 
 
 def SearchTutee(info,tutor):
@@ -60,7 +62,7 @@ def SearchTutee(info,tutor):
         csvReader = csv.reader(csvfile)
         for row in csvReader:
 
-            if tutor in row[0]:
+            if tutor == row[0]:
                 info.append(row[0])
 
                 """Dealing with middle names"""

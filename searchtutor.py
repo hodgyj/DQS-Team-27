@@ -44,15 +44,15 @@ def StartWindow():
 
 """Checks if given id is valid, and if it is - goes to the searchTut function and returns tutors id and name"""
 
-def input_test(input):
+def input_test(userinput):
     tutorInfo = []
     with open('tutors.csv', 'rt') as csvfile:
         csvReader = csv.reader(csvfile)
-
+        found = False
         for row in csvReader:
 
-            if input in row[0]:
-
+            if userinput == row[0]:
+                found = True
                 tutorInfo.append(row[0])
                 """Dealing with middle names"""
 
@@ -61,25 +61,24 @@ def input_test(input):
                 else:
                     name = row[1] + ' ' + row[3] + " " + row[2]
                 tutorInfo.append(name)
-                searchTut(input,tutorInfo)
+                searchTut(userinput,tutorInfo)
 
                 break
-
-        Tk().withdraw()
-        messagebox.showerror("Input Error", "No such ID")
-
+        if not found:
+            messagebox.showerror("Input Error", "No such ID")
+       
 
         csvfile.close()
 """Gets all the students in a list fot the given tutor"""
 
-def searchTut(id,info):
+def searchTut(tutid,info):
 
     studentList = []
     with open('tutees.csv', 'rt') as csvfile:
         csvReader = csv.reader(csvfile)
         for row in csvReader:
             childList =[]
-            if id in row[4]:
+            if tutid == row[4]:
                 childList.append(row[0])
 
                 """Dealing with middle names"""
