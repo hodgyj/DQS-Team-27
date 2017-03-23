@@ -50,9 +50,9 @@ def input_test(input):
 
                 break
 
-            else:
-                messagebox.showerror("Input Error", "No such ID")
-                break
+        Tk().withdraw()
+        messagebox.showerror("Input Error", "No such ID")
+
 
 def SearchTutee(info,tutor):
 
@@ -133,4 +133,5 @@ def StartTree(info):
 
 if __name__ == "__main__":
     import login
+
 
