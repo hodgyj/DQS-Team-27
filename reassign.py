@@ -78,13 +78,13 @@ class Reassign(Frame):
         identity = self.entId.get()
         notutor = False
         with open("tutees.csv") as csvfile:
-            with open("temp.csv", "w", newline='') as tempfile:
-                csvreader = csv.reader(csvfile)
-                csvwriter = csv.writer(tempfile)
-                lines = [line for line in csvreader]
-                found = False
-                for line in lines:
-                    if line[0] == identity:
+            csvreader = csv.reader(csvfile)
+            lines = [line for line in csvreader]
+            found = False
+            for line in lines:
+                if line[0] == identity:
+                    with open("temp.csv", "w", newline='') as tempfile:
+                        csvwriter = csv.writer(tempfile)
                         found = True
                         tutor, tutname = reassignTutee(line[5], "tutees.csv", "tutors.csv")
                         if (tutor == ""):
@@ -94,6 +94,7 @@ class Reassign(Frame):
                             name = line[2] + " " + line[3] + " " + line[1]
                             line[4] = tutor
                             csvwriter.writerows(lines)
+                    break
             tempfile.close()
         csvfile.close()
             
