@@ -4,8 +4,8 @@ import csv
 
 def getQuota():
 
-    tutorList = []
-    tuteeList = []
+   # tutorList = []
+   # tuteeList = []
 
     with open('Tutors.csv') as tutorFile:
         with open('Tutees.csv') as tuteeFile:
@@ -78,7 +78,7 @@ class Quota(Frame):
             return ""
 
     def displayQuota(self):
-        quotaDict = getQuota()
+        quotaDict = getQuota() # variable gets the function which calculates quota for each Tutor
 
         for tutor, tutorDict in quotaDict.items():
             tutorName = self.getTutorName(tutor)
