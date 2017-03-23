@@ -4,9 +4,6 @@ import csv
 
 def getQuota():
 
-   # tutorList = []
-   # tuteeList = []
-
     with open('Tutors.csv') as tutorFile:
         with open('Tutees.csv') as tuteeFile:
             tutorReader = csv.reader(tutorFile)
