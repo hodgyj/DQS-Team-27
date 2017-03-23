@@ -9,13 +9,14 @@ class Search(Frame):
         Frame.__init__(self, master)
         self.grid()
         self.createTitle()
-        self.createInput()
+        self.createInput(master)
+
 
     def createTitle(self):
         lblTitle = Label(self, text='Tutee Search', font=('Segoe UI Light', 32), background="white")
         lblTitle.grid(row=0, column=0, columnspan=3, sticky=W+E, pady=5, padx=20)
 
-    def createInput(self):
+    def createInput(self,window):
         lblHelp = Label(self, text='Please enter the tutee student number:', font=('Segoe UI Light', 16), background="white")
         lblHelp.grid(row=1, column=0, columnspan=3, sticky=W+E)
 
@@ -26,7 +27,8 @@ class Search(Frame):
                            command = lambda : input_test(txtSearch.get()))
         btnSearch.grid(row=3, column=0, sticky=W+E, ipadx=10, pady=15, padx=10)
 
-        btnCancel = Button(self, text='Cancel', font=('Segoe UI', 14), background='#2196F3', activebackground='#64B5F6', activeforeground='#FFFFFF', foreground='#FFFFFF')
+        btnCancel = Button(self, text='Cancel', font=('Segoe UI', 14), background='#2196F3', activebackground='#64B5F6', activeforeground='#FFFFFF', foreground='#FFFFFF'
+                           ,command = window.destroy)
 
         btnCancel.grid(row=3, column=2, sticky=W+E, ipadx=10, padx=10)
 
