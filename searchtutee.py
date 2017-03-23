@@ -25,42 +25,54 @@ class Search(Frame):
         btnSearch = Button(self, text='Search', font=('Segoe UI', 14), background='#2196F3', activebackground='#64B5F6', activeforeground='#FFFFFF', foreground='#FFFFFF',
                            command = lambda : input_test(txtSearch.get()))
         btnSearch.grid(row=3, column=0, sticky=W+E, ipadx=10, pady=15, padx=10)
+
         btnCancel = Button(self, text='Cancel', font=('Segoe UI', 14), background='#2196F3', activebackground='#64B5F6', activeforeground='#FFFFFF', foreground='#FFFFFF')
+
         btnCancel.grid(row=3, column=2, sticky=W+E, ipadx=10, padx=10)
 
 
+
 def input_test(userinput):
-    studentInfo = []
-    with open('tutees.csv', 'rt') as csvfile:
-        csvReader = csv.reader(csvfile)
+    # Get names of the csv files
 
-        found = False
-        for row in csvReader:
-
-            if userinput == row[0]:
-                found = True
-                studentInfo.append(row[0])
-                """Dealing with middle names"""
-
-                if row[3] == "":
-                    name = row[1] + ' ' + row[2]
-                else:
-                    name = row[1] + ' ' + row[3] + " " + row[2]
-                studentInfo.append(name)
-                studentInfo.append(row[5])
-                studentInfo.append(row[6])
-                SearchTutee(studentInfo,row[4])
-
-                break
-        if not found:
-            messagebox.showerror("Input Error", "No such ID")
+    with open('fileLoc.txt') as txtFile:
+           fileLocations = txtFile.readlines()
+           fileLocations = [line.strip() for line in fileLocations]
 
 
-def SearchTutee(info,tutor):
+    with open(fileLocations[0]) as tutorFile:
 
-    with open('tutors.csv', 'rt') as csvfile:
-        csvReader = csv.reader(csvfile)
-        for row in csvReader:
+        with open(fileLocations[1]) as tuteeFile:
+            tutorReader = csv.reader(tutorFile)
+            tuteeReader = csv.reader(tuteeFile)
+            studentInfo = []
+            found = False
+            for row in tuteeReader:
+
+                if userinput == row[0]:
+                        found = True
+                        studentInfo.append(row[0])
+                        """Dealing with middle names"""
+
+                        if row[3] == "":
+                            name = row[1] + ' ' + row[2]
+                        else:
+                            name = row[1] + ' ' + row[3] + " " + row[2]
+                        studentInfo.append(name)
+                        studentInfo.append(row[5])
+                        studentInfo.append(row[6])
+                        SearchTutee(studentInfo,row[4],tutorReader)
+
+                        break
+
+            if not found:
+                    messagebox.showerror("Input Error", "No such ID")
+
+
+def SearchTutee(info,tutor,tutorfile):
+
+
+        for row in tutorfile:
 
             if tutor == row[0]:
                 info.append(row[0])
@@ -128,6 +140,16 @@ def StartTree(info):
     app = Treelist(root,info)
     app.configure(background="white")
     root.mainloop()
+
+
+
+
+
+if __name__ == "__main__":
+    import login
+
+
+
 
 
 
