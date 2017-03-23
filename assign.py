@@ -27,17 +27,16 @@ class Assign(Frame):
 
 	def buttons(self):
 	 	butSubmit = Button(self, text='OK',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT, command=self.submitClicked)
-	 	butSubmit.grid(row=4, column=0, columnspan=1, pady=10, ipadx=2)
-	 	butCancel = Button(self, text='Cancel',font=('Segoe UI light', 14), bg='#2196F3', activebackground='#64B5F6', fg='white', activeforeground='white', relief=FLAT, command=self.cancel)
-	 	butCancel.grid(row=4, column=1, columnspan=1, pady=10, ipadx=2)
-
-	def cancel(self):
-		root.destroy()
-		
+	 	butSubmit.grid(row=4, column=1, columnspan=2, pady=10, ipadx=2)
 
 	def submitClicked(self):
+		try:
 			csvFileName = self.tutee.get()
 			tempFileName = "tempAssign.csv"
+
+			text_file = open("fileLoc.txt", "w")
+			text_file.write(self.tutor.get() + "\n" + self.tutee.get())
+			text_file.close()
 
 			if((self.tutor.index("end") == 0) or (self.tutee.index("end") == 0)):
 				messagebox.showerror("Validation Error", "CSV file required in both fields.")
@@ -70,14 +69,19 @@ class Assign(Frame):
 						wrt.writerow(row)
 
 				shutil.move(tempFileName, csvFileName)
-				root.destroy()
+				self.tutor.delete(0, END)
+				self.tutee.delete(0, END)
+				messagebox.showinfo("Successful", "All tutees assigned a tutor.")
+		except FileNotFoundError:
+			messagebox.showerror("Input error", "Oops! File not found.")
 
-root = Tk()
-root.title("Assign")
-root.resizable(0,0)
-app = Assign(root)
-app.configure(background="white")
-root.mainloop()
+def StartWindow():
+	root = Tk()
+	root.title("Assign")
+	root.resizable(0,0)
+	app = Assign(root)
+	app.configure(background="white")
+	root.mainloop()
 
 if __name__ == "__main__":
     import login 
