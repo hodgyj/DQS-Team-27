@@ -10,6 +10,13 @@ class Assign(Frame):
 		self.idInput()
 		self.id()
 		self.buttons()
+		# Get names of the csv files
+		with open('fileLoc.txt') as txtFile:
+			fileLocations = txtFile.readlines()
+			fileLocations = [line.strip() for line in fileLocations]
+			self.tutor.insert(0, fileLocations[0])
+			self.tutee.insert(0, fileLocations[1])
+			
 
 	def idInput(self):
 		lblTitle = Label(self, text='Assign Student', font=('Segoe UI light', 24), background="white")
