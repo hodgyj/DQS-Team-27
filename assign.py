@@ -70,7 +70,8 @@ class Assign(Frame):
 						wrt.writerow(row)
 
 				shutil.move(tempFileName, csvFileName)
-				root.destroy()
+				self.tutor.delete(0, END)
+				self.tutee.delete(0, END)
 				messagebox.showinfo("Successful", "All tutees assigned a tutor.")
 def StartWindow():
 	root = Tk()
