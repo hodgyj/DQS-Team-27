@@ -3,34 +3,34 @@ from tkinter import ttk
 import csv
 
 def getQuota():
-    # get names of the csv files
+    # Get names of the csv files
     with open('fileLoc.txt') as txtFile:
         fileLocations = txtFile.readlines()
         fileLocations = [line.strip() for line in fileLocations]
-    
+    # Opens and reads csv files
     with open(fileLocations[0]) as tutorFile:
         with open(fileLocations[1]) as tuteeFile:
             tutorReader = csv.reader(tutorFile)
             tuteeReader = csv.reader(tuteeFile)
-
+            # Stores csv file contents as lists 
             tutorList = list(tutorReader)
             tuteeList = list(tuteeReader)
 
-    tutorDict = {} # 
+    tutorDict = {} 
     
-    # iterates through Tutor csv file
+    # Iterates through Tutor csv file
     for tutorRow in tutorList:
         quotaDict = {"degrees": {}, "years": {}, "num": 0} #
-        # iterates through Tutee csv file
+        # Iterates through Tutee csv file
         for tuteeRow in tuteeList:
-            # if the student tutor group is equal to tutor ID
+            # If the student tutor group is equal to tutor ID
             if tuteeRow[4] == tutorRow[0]:
-                # and student degree is equal to ? 
+                # If student degree is equal to tutor degree group
                 if tuteeRow[5] in quotaDict["degrees"]:  
                     quotaDict["degrees"][tuteeRow[5]] += 1
                 else:
                     quotaDict["degrees"][tuteeRow[5]] = 1
-                
+                # If student year is equal to tutor degree group
                 if tuteeRow[6] in quotaDict["years"]:
                     quotaDict["years"][tuteeRow[6]] += 1
                 else:
@@ -73,7 +73,7 @@ class Quota(Frame):
         self.columnconfigure(5, minsize=20)
 
     def getTutorName(self, tutorId):
-        # get names of the csv files
+        # Get names of the csv files
         with open('fileLoc.txt') as txtFile:
             fileLocations = txtFile.readlines()
             fileLocations = [line.strip() for line in fileLocations]
@@ -88,7 +88,7 @@ class Quota(Frame):
             return ""
 
     def displayQuota(self):
-        # variable imports the function that contains quota information
+        # Gets the function that contains quota information
         quotaDict = getQuota()
         
         # Retrives tutor name, 
@@ -97,7 +97,8 @@ class Quota(Frame):
             rowId = self.tblQuotas.insert('', 'end', text=tutorName, values=(tutorDict['num']))
             degreeId = self.tblQuotas.insert(rowId, 'end', text='Degrees')
             yearId = self.tblQuotas.insert(rowId, 'end', text='Years')
-
+            
+            # Outputs the quota of tutees per degree group
             for degreeClass, numTutees in quotaDict[tutor]['degrees'].items():
                 classRow = self.tblQuotas.insert(degreeId, 'end', iid=None, text=degreeClass, values=(numTutees))            
             
